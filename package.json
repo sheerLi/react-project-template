@@ -28,7 +28,7 @@
     "http-proxy-middleware": "^1.0.1",
     "ip": "^1.1.5",
     "less-loader": "^6.0.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "prettier": "^1.19.1",
     "progress-bar-webpack-plugin": "^2.1.0",
     "react-dev-utils": "^10.2.0",
