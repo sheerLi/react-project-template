@@ -1,3 +1,4 @@
 import React from 'react';
+import styled from './app.less';
 
-export default () => <div>Hello World! ggggdjagjj</div>;
+export default () => <div className={styled.wrap}>Hello App</div>;

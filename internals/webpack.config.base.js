@@ -1,7 +1,7 @@
-const path = require("path");
-const webpack = require("webpack");
-const FriendlyErrorPlugin = require("friendly-errors-webpack-plugin");
-const ProgressBarPlugin = require("progress-bar-webpack-plugin");
+const path = require('path');
+const webpack = require('webpack');
+const FriendlyErrorPlugin = require('friendly-errors-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 module.exports = options => {
   const base = {
@@ -9,35 +9,50 @@ module.exports = options => {
     entry: options.entry,
     output: Object.assign(
       {
-        path: path.join(process.cwd(), "dist"),
-        publicPath: "/"
+        path: path.join(process.cwd(), 'dist'),
+        publicPath: '/',
       },
-      options.output
+      options.output,
     ),
     module: {
       rules: [
         {
           test: /\.(ts|js)x$/,
           exclude: /(node_modules)/,
-          loader: "babel-loader"
-        }
-      ]
+          loader: 'babel-loader',
+        },
+        {
+          test: /\.(less)$/,
+          use: [
+            { loader: 'style-loader' },
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                },
+              },
+            },
+            { loader: 'less-loader' },
+          ],
+        },
+      ],
     },
     plugins: options.plugins.concat([
       new webpack.EnvironmentPlugin({
-        NODE_ENV: "development"
+        NODE_ENV: 'development',
       }),
       new FriendlyErrorPlugin(),
       new ProgressBarPlugin(),
     ]),
     resolve: {
-      extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
       alias: {
-        "@": path.join(process.cwd(), "src")
-      }
+        '@': path.join(process.cwd(), 'src'),
+      },
     },
     devtool: options.devtool,
-    target: "web",
+    target: 'web',
     performance: options.performance,
   };
 
